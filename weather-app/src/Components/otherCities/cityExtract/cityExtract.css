@@ -1,6 +1,6 @@
 
 .city-extract {
-    flex: 1 10 auto;   
+    width: 10%;
     padding: 0.5rem;
     background: white;
 }
@@ -23,6 +23,7 @@
 
 .city-extract header {
     margin-bottom: 10px;
+    height: 2rem;
 }
 
 .city-extract img {

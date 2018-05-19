@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './cityExtract.css';
 
-function CitieExtract({name, skyStatus, temperature}) {
+function CityExtract({name, skyStatus, temperature}) {
     return (
         <a href="#" className="city-extract">
             <div>
@@ -15,4 +15,4 @@ function CitieExtract({name, skyStatus, temperature}) {
     )
 }
 
-export default CitieExtract;
+export default CityExtract;

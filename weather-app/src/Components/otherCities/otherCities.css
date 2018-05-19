@@ -14,6 +14,5 @@ footer header h1{
  
 footer .cities-list{
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
 }
