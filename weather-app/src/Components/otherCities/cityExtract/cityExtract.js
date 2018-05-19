@@ -8,7 +8,7 @@ function CityExtract({name, skyStatus, temperature}) {
                 <header>
                     <h2>{name}</h2>
                 </header>
-                <img src="http://via.placeholder.com/50"/>
+                <img src={(skyStatus) ? `${process.env.PUBLIC_URL}/icons${skyStatus}` : `http://via.placeholder.com/50?text=No+data`}/>
                 <span className="temperature">{temperature}°</span>
             </div>
         </a>
