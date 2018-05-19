@@ -46,14 +46,19 @@ class OtherCities extends Component {
             city = cities[randomIndex];
 
             WeatherRequests.getCityWeatherByName(city.name, city.country).then((response)=>{
-                let tempCities = this.state.cities;
-                
-                tempCities.push({
-                    name:`${city.name}, ${city.country}`,
-                    temperature: Math.floor(response.data.main.temp)
-                });
+                // No all cities on that API return population ... need to look for a workaround
+                WeatherRequests.getCityPopulation(city.name, city.country).then(populationObj => {
+                    let tempCities = this.state.cities,
+                        population = (populationObj.data.records[0]) ? populationObj.data.records[0].fields.population : null;
+                    console.log(populationObj)
+                    tempCities.push({
+                        name:`${city.name}, ${city.country}`,
+                        temperature: Math.floor(response.data.main.temp),
+                        population: (population) ? populationObj.data.records[0].fields.population : 0
+                    });
+                    this.setState({cities: tempCities})
+                })
 
-                this.setState({cities: tempCities})
             });
         }
     }

@@ -32,6 +32,11 @@ const WeatherRequests = {
     getCityWeatherByName: (name, country) => {
         const URL = `${env.openWeatherURL}/weather?q=${name},${country}&appid=${env.openWeatherKey}`;
         return axios.get(URL);
+    },
+
+    getCityPopulation: (city, country) => {
+        const URL = `${env.worldPopulation}&q=${city.toLowerCase()}&rows=1&sort=population&facet=country&refine.country=${country.toLowerCase()}`;
+        return axios.get(URL);
     }
 }
 
