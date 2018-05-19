@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 // Components
+import Home from './Components/home/home';
 import OtherCities from './Components/otherCities/otherCities';
 
 class App extends Component {
@@ -11,20 +12,11 @@ class App extends Component {
     
   }
 
-  componentDidMount() {
-/*     WeatherRequests.getCurrentCityPosition().then(position => {
-      console.log(position)
-      WeatherRequests.getCityInfo(position).then(res=> {
-        console.log(res);
-      });
-    }); */
-
-  }
-
   render() {
     return (
       <div className="App">
-        <OtherCities ></OtherCities>
+        <Home/>
+        <OtherCities/>
       </div>
     );
   }
