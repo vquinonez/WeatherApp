@@ -1,108 +1,54 @@
-import React, { Component } from 'react';
-import './home.css';
+import React, { Component } from "react";
+import "./home.css";
 
 //Services
-import DayConditions  from '../../Services/dayConditions';
-import WeatherRequests  from '../../Services/WeatherRequests';
+import DayConditions from "../../Services/dayConditions";
 
 // Components
-import MainWeather  from '../mainWeather/mainWeather';
-import Forecast  from './forecast/forecast';
-import MapCity  from './map/map';
+import MainWeather from "../mainWeather/mainWeather";
+import Forecast from "./forecast/forecast";
+import MapCity from "./map/map";
 
 class Home extends Component {
-
   constructor(props) {
     super(props);
-    
-    this.state = {
-        isDay: true,
-        mainWeather: {
-            name: '',
-            skyStatus: '',
-            min: 0,
-            max: 0,                        
-        },
-        forecast: [ ],
-        position: {lat: 0, lng: 0}
-    }
   }
 
-    componentDidMount() {
-        WeatherRequests.getCurrentCityPosition().then(this.getFullInfo.bind(this));
-    }
-
-
-    render() {
-        return (
-        <section className={`main-container ${(this.state.isDay) ? 'day' : 'night'}`}>
-            <MainWeather 
-                name={this.state.mainWeather.name} 
-                skyStatus={this.state.mainWeather.skyStatus} 
-                min={this.state.mainWeather.min} 
-                max={this.state.mainWeather.max}/>
-            <div className="container">
-                <div className="half">
-                    {
-                        this.state.forecast.map((item, index) => {
-                            return (<Forecast 
-                                key={index}
-                                date={{
-                                    ...item.date,
-                                    month: DayConditions.getMonthName(item.date.month)
-                                }}
-                                skyStatus={DayConditions.setWeatherSkyIcon(item.skyStatus)}
-                                min={Math.floor(item.temp_min)}
-                                max={Math.floor(item.temp_max)}/>)
-                        })
-                    }
-                </div>
-                <div className="half">
-                    <MapCity 
-                        position={this.state.position}/>
-                </div>
-            </div>
-        </section>
-        );
-    }
-    
-    getCurrentWeather(position) {
-        WeatherRequests.getCityWeatherByCoordinates(position).then(weather => {
-            
-            let weatherData = weather.data,
-            country = weatherData.sys.country,
-            weatherObj = {
-                name: `${weatherData.name}, ${country}`,
-                skyStatus: DayConditions.setWeatherSkyIcon(weatherData.weather[0].icon, 'light'),
-                min: Math.floor(weatherData.main.temp_min),
-                max: Math.floor(weatherData.main.temp_max),                        
-            };
-            
-            
-            this.setState({
-                isDay: DayConditions.isDay(weatherData.weather[0].icon),
-                mainWeather: weatherObj
-            });
-        });
-    }
-
-    getForcast(position) {
-        WeatherRequests.getForecastByCoordinates(position).then(forecast => {
-            let dailyForecast = WeatherRequests.convertHourForecastIntoDaily(forecast.data.list);
-
-            this.setState({
-                forecast: dailyForecast.slice(1,4)
-            });
-        });
-    }
-
-    getFullInfo(position) {
-
-        this.setState({position: position});
-
-        this.getCurrentWeather(position);
-        this.getForcast(position);
-    }
+  render() {
+    return (
+      <section
+        className={`main-container ${this.props.isDay ? "day" : "night"}`}
+      >
+        <MainWeather
+          name={this.props.mainWeather.name}
+          skyStatus={this.props.mainWeather.skyStatus}
+          min={this.props.mainWeather.min}
+          max={this.props.mainWeather.max}
+        />
+        <div className="container">
+          <div className="half">
+            {this.props.forecast.map((item, index) => {
+              return (
+                <Forecast
+                  key={index}
+                  date={{
+                    ...item.date,
+                    month: DayConditions.getMonthName(item.date.month)
+                  }}
+                  skyStatus={DayConditions.setWeatherSkyIcon(item.skyStatus)}
+                  min={Math.floor(item.temp_min)}
+                  max={Math.floor(item.temp_max)}
+                />
+              );
+            })}
+          </div>
+          <div className="half">
+            <MapCity position={this.props.position} />
+          </div>
+        </div>
+      </section>
+    );
+  }
 }
 
 export default Home;

@@ -1,6 +1,6 @@
 import axios from 'axios';
-import env from './enviroment'
-
+import env from './enviroment';
+import cities from '../assets/json/city.list.json';
 
 const WeatherRequests = {
     
@@ -104,6 +104,10 @@ const WeatherRequests = {
     getForecastByCoordinates: (coords = {lat: '0', lng: '0'}) => {
         const URL = `${env.openWeatherURL}/forecast?lat=${coords.lat}&lon=${coords.lng}&appid=${env.openWeatherKey}`;
         return axios.get(URL);
+    },
+
+    getPositionByName: (name, country) => {
+        return cities.find(city => city.name === name && city.country === country).coord;
     }
 
 }
