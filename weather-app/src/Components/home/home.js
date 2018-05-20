@@ -12,8 +12,8 @@ import MapCity  from './map/map';
 
 class Home extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     
     this.state = {
         isDay: true,

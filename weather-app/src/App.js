@@ -10,16 +10,24 @@ class App extends Component {
   constructor() {
     super();
     
+    this.state ={
+      selectedCity: null
+    };
   }
 
   render() {
     return (
       <div className="App">
         <Home/>
-        <OtherCities/>
+        <OtherCities onClick={this.catchClickEvent.bind(this)}/>
       </div>
     );
   }
+
+  catchClickEvent(e) {
+    this.setState({selectedCity: e.currentTarget.getAttribute('name')})
+  }
+
 }
 
 export default App;

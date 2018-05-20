@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './cityExtract.css';
 
-function CityExtract({name, skyStatus, temperature}) {
+function CityExtract({name, skyStatus, temperature, onClick}) {
     return (
-        <a href="#" className="city-extract">
-            <div>
+        <a href="#" className="city-extract" name={name} onClick={onClick}>
+            <div name={name}>
                 <header>
                     <h2>{name}</h2>
                 </header>

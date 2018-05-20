@@ -31,7 +31,13 @@ class OtherCities extends Component {
                 <div className="cities-list">
                     {
                         this.state.cities.map((city, index) => {
-                            return (<CityExtract key={index} name={city.name} skyStatus={city.skyStatus} temperature={city.temperature}/>);
+                            return (<CityExtract 
+                                        key={index} 
+                                        name={city.name} 
+                                        skyStatus={city.skyStatus} 
+                                        temperature={city.temperature}
+                                        onClick={this.props.onClick}
+                                        />);
                         })
                     }
                 </div>
