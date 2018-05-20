@@ -1,5 +1,6 @@
 .main-container {
     display: flex;
+    flex-flow: column;
     align-content: space-between;
     justify-content: center;
 
@@ -24,4 +25,21 @@
     background: -webkit-linear-gradient(-45deg, #065189 0%,#40395b 100%);
     background: linear-gradient(135deg, #065189 0%,#40395b 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#065189', endColorstr='#40395b',GradientType=1 );
+}
+
+.container {
+    display: flex;
+
+    width: 1024px;
+    margin: auto;
+}
+
+.container > * {
+    padding: 0 15px;
+    flex: 1 100%;
+    box-sizing: border-box;
+}
+
+.half {
+    flex: 1 50%;
 }

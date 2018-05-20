@@ -1,5 +1,9 @@
 const DayConditions = {
     
+    getMonthName: (month) => {
+        return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][month];
+    },
+
     isDay: (weatherKey) => {
         return (weatherKey.substr(weatherKey.length - 1) === 'd');
     },
