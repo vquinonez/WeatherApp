@@ -37,7 +37,8 @@ const WeatherRequests = {
     getCityPopulation: (city, country) => {
         const URL = `${env.worldPopulation}&q=${city.toLowerCase()}&rows=1&sort=population&facet=country&refine.country=${country.toLowerCase()}`;
         return axios.get(URL);
-    }
+    },
+
 }
 
 export default WeatherRequests;
