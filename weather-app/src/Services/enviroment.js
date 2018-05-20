@@ -4,6 +4,7 @@ const env = {
 
     googleLocationKey: 'AIzaSyAPGdKttVOrLerdPo1Q3cb19pTnprlhd8w',
     googleLocationURL: 'https://maps.googleapis.com/maps/api/geocode/json?',
+    googleMapURL: 'https://maps.googleapis.com/maps/api/js?key=',
 
     worldPopulation: 'https://public.opendatasoft.com/api/records/1.0/search/?dataset=worldcitiespop'
 }

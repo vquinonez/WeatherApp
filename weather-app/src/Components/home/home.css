@@ -41,5 +41,9 @@
 }
 
 .half {
+    display: flex;
+    flex-flow: column;
+    justify-content: stretch;
+
     flex: 1 50%;
 }

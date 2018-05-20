@@ -8,6 +8,7 @@ import WeatherRequests  from '../../Services/WeatherRequests';
 // Components
 import MainWeather  from '../mainWeather/mainWeather';
 import Forecast  from './forecast/forecast';
+import MapCity  from './map/map';
 
 class Home extends Component {
 
@@ -22,7 +23,8 @@ class Home extends Component {
             min: 0,
             max: 0,                        
         },
-        forecast: [ ]
+        forecast: [ ],
+        position: {lat: 0, lng: 0}
     }
   }
 
@@ -56,7 +58,8 @@ class Home extends Component {
                     }
                 </div>
                 <div className="half">
-                a
+                    <MapCity 
+                        position={this.state.position}/>
                 </div>
             </div>
         </section>
@@ -94,6 +97,9 @@ class Home extends Component {
     }
 
     getFullInfo(position) {
+
+        this.setState({position: position});
+
         this.getCurrentWeather(position);
         this.getForcast(position);
     }
