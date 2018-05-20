@@ -27,12 +27,12 @@ class Home extends Component {
     componentDidMount() {
         WeatherRequests.getCurrentCityPosition().then(position => {
             WeatherRequests.getCityInfo(position).then(info => {
+                console.log(info)
                 let addresComp = info.data.results[0].address_components,
-                    zip = this.getAddressComponent(addresComp, 'postal_code').short_name,
+                    city = this.getAddressComponent(addresComp, 'locality').long_name,
                     country = this.getAddressComponent(addresComp, 'country').short_name;
 
-                WeatherRequests.getCityWeatherByZip(zip, country).then(weather => {
-                    console.log(weather);
+                WeatherRequests.getCityWeatherByName(city, country).then(weather => {
 
                     let weatherData = weather.data,
                         weatherObj = {
@@ -42,7 +42,11 @@ class Home extends Component {
                         max: Math.floor(weatherData.main.temp_max),                        
                     };
 
-                    this.setState({mainWeather: weatherObj});
+
+                    this.setState({
+                        isDay: DayConditions.isDay(weatherData.weather[0].icon),
+                        mainWeather: weatherObj
+                    });
                 });
             });
         });
