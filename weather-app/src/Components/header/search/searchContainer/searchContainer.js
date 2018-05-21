@@ -46,7 +46,7 @@ class SearchContainer extends Component {
                 <ul className="search-results">
                     {
                         this.state.cities.map((city, index) => {
-                            return <li key={index} ><a lat={city.coord.lar} lng={city.coord.lon} >{city.name}, {city.country}</a></li>
+                            return <li key={index} ><a onClick={this.props.selectedElem} lat={city.coord.lat} lng={city.coord.lon} >{city.name}, {city.country}</a></li>
                         })
                     }
                 </ul>

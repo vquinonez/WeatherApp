@@ -39,7 +39,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header toggleSystem={this.catchToggleMetric.bind(this)}/>
+        <Header 
+          toggleSystem={this.catchToggleMetric.bind(this)}
+          selectedElem={this.changeSelection.bind(this)}/>
         <Home 
           isDay={this.state.isDay}
           mainWeather={this.state.mainWeather}
@@ -61,6 +63,10 @@ class App extends Component {
   catchToggleMetric(e) {
     this.setState({metricSystem: !this.state.metricSystem});
     this.convertStateSystem();
+  }
+
+  changeSelection(e) {
+    this.getFullInfoByPosition({lat: e.currentTarget.getAttribute("lat"), lng: e.currentTarget.getAttribute("lng")})
   }
 
   convertStateSystem() {

@@ -5,10 +5,10 @@ import './header.css';
 import ToggleSystem from './toggleSystem/toggleSystem';
 import Search from './search/search';
 
-function Header({toggleSystem}) {
+function Header({toggleSystem, selectedElem}) {
     return (
         <header className="main-header">
-            <Search />
+            <Search selectedElem={selectedElem}/>
             <ToggleSystem onClick={toggleSystem} />
         </header>
     )

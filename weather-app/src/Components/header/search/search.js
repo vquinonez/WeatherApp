@@ -18,8 +18,7 @@ class Search extends Component {
         return (
             <div className="search">
                 <button onClick={this.toggleSearch.bind(this)}><i className="fa fa-search"/> Search</button>
-                {/* {this.displaySearch()} */}
-                <SearchContainer isOpen={this.state.openSearch} close={this.toggleSearch.bind(this)} />
+                <SearchContainer selectedElem={this.props.selectedElem} isOpen={this.state.openSearch} close={this.toggleSearch.bind(this)} />
             </div>
         )
     }
