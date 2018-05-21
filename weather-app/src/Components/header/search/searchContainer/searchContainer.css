@@ -1,0 +1,92 @@
+.search-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+    
+    color: white;
+
+    background-color: rgba(0,0,0,0.65);
+    width: 33vw;
+    height: 100vh;
+    transition: left 0.5s;
+}
+
+.search-container header {
+    width: 100%;
+    padding: 15px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.search-container.close {
+    left: -33vw;
+    transition: left 0.5s;
+}
+
+.search-container header h1 {
+    display: inline;
+    font-size: 2rem;
+}
+
+.search-container header a {
+    color: white;
+    float: right;
+
+    cursor: pointer;
+}
+
+.search-container .search-inputs {
+    display: flex;
+    justify-content: center;
+    
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.search-container .search-inputs input {
+    width: 50%;
+    margin-right: 2.5%;
+
+    border: 2px solid white;
+    border-radius: 5px;
+    padding: 5px;
+    color: white;
+    background: transparent;
+    font-size: 1rem;
+}
+.search-container .search-inputs input::-webkit-input-placeholder {
+    color: white;
+    opacity: 1;
+}
+
+.search-container .search-inputs select {
+    width: 20%;
+    margin-left: 2.5%;
+
+    border: 2px solid white;
+    border-radius: 5px;
+    padding: 5px;
+    color: white;
+    background: transparent;
+    font-size: 1rem;
+}
+.search-container .search-inputs select option {
+    color: black;
+}
+
+.search-container .search-results {
+    font-size: 1rem;
+}
+.search-container .search-results a {
+    color: white;
+    line-height: 1.5rem;
+    padding: 5px;
+}
+.search-container .search-results a:hover {
+    cursor: pointer;
+}

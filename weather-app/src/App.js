@@ -64,7 +64,6 @@ class App extends Component {
   }
 
   convertStateSystem() {
-    console.log(this.state.cities)
     let mainWeatherConversion = {
       ...this.state.mainWeather,
       min: WeatherRequests.convertWeatherSystem(this.state.mainWeather.min, this.state.metricSystem),

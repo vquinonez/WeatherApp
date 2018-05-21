@@ -1,0 +1,13 @@
+.search button {
+    background: #311550b8;
+    border-style: none;
+    padding: 7px;
+    border-radius: 10px;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.search button:hover {
+    cursor: pointer;
+}

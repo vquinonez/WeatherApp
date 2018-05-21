@@ -3,11 +3,12 @@ import './header.css';
 
 //Components
 import ToggleSystem from './toggleSystem/toggleSystem';
+import Search from './search/search';
 
 function Header({toggleSystem}) {
     return (
         <header className="main-header">
-            <div/>
+            <Search />
             <ToggleSystem onClick={toggleSystem} />
         </header>
     )
