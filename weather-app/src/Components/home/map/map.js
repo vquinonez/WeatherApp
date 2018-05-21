@@ -46,7 +46,7 @@ class MapCity extends Component {
         if (this.isPositionFilled(this.state.position)) {
             return <GoogleMapReact
                     bootstrapURLKeys={{ key: env.googleLocationKey }}
-                    defaultCenter={this.state.position}
+                    center={this.state.position}
                     defaultZoom={this.state.zoom}
                     />
         }

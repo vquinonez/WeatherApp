@@ -66,7 +66,10 @@ class App extends Component {
   }
 
   changeSelection(e) {
-    this.getFullInfoByPosition({lat: e.currentTarget.getAttribute("lat"), lng: e.currentTarget.getAttribute("lng")})
+    this.getFullInfoByPosition({
+      lat: Number(e.currentTarget.getAttribute("lat")), 
+      lng: Number(e.currentTarget.getAttribute("lng"))
+    })
   }
 
   convertStateSystem() {
