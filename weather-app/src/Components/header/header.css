@@ -1,0 +1,10 @@
+header.main-header {
+    position: fixed;
+    top: 0;
+
+    display: flex;
+    justify-content: space-around;
+
+    padding: 15px;
+    width: 100%;
+}

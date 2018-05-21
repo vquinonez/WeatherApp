@@ -56,6 +56,16 @@ const WeatherRequests = {
         }, []);
     },
 
+    convertWeatherSystem: (temperature, metricSystem = false) => {
+        if (metricSystem) {
+            // Celsius
+            return Math.floor(((9/5) * temperature) + 32 );
+        } else {
+            // Farenheit
+            return Math.floor((temperature - 32 )* (5/9));
+        }
+    },
+
     formatDateIntoCustomObject(dateString) {
         let date = new Date(dateString)
         return {
@@ -80,14 +90,13 @@ const WeatherRequests = {
         });
     },  
 
-    getCityWeatherByCoordinates: (coords = {lat: '0', lng: '0'}) => {
-        const URL = `${env.openWeatherURL}/weather?lat=${coords.lat}&lon=${coords.lng}&appid=${env.openWeatherKey}`;
+    getCityWeatherByCoordinates: (coords = {lat: '0', lng: '0'}, metric = false) => {
+        const URL = `${env.openWeatherURL}/weather?lat=${coords.lat}&lon=${coords.lng}&appid=${env.openWeatherKey}&units=${(metric) ? 'metric' : 'imperial'}`;
         return axios.get(URL);
     },
-
     
-    getCityWeatherByName: (name, country) => {
-        const URL = `${env.openWeatherURL}/weather?q=${name},${country}&appid=${env.openWeatherKey}`;
+    getCityWeatherByName: (name, country, metric = false) => {
+        const URL = `${env.openWeatherURL}/weather?q=${name},${country}&appid=${env.openWeatherKey}&units=${(metric) ? 'metric' : 'imperial'}`;
         return axios.get(URL);
     },
     
@@ -101,8 +110,8 @@ const WeatherRequests = {
         return axios.get(URL);
     },
     
-    getForecastByCoordinates: (coords = {lat: '0', lng: '0'}) => {
-        const URL = `${env.openWeatherURL}/forecast?lat=${coords.lat}&lon=${coords.lng}&appid=${env.openWeatherKey}`;
+    getForecastByCoordinates: (coords = {lat: '0', lng: '0'}, metric = false) => {
+        const URL = `${env.openWeatherURL}/forecast?lat=${coords.lat}&lon=${coords.lng}&appid=${env.openWeatherKey}&units=${(metric) ? 'metric' : 'imperial'}`;
         return axios.get(URL);
     },
 

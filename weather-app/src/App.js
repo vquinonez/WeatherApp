@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import "./App.css";
+import cities from './assets/json/city.list.json'
 
 //Services
 import DayConditions from "./Services/dayConditions";
 import WeatherRequests from "./Services/WeatherRequests";
 
 // Components
+import Header from "./Components/header/header"
 import Home from "./Components/home/home";
 import OtherCities from "./Components/otherCities/otherCities";
 
@@ -22,24 +24,28 @@ class App extends Component {
         max: 0,
       },
       forecast: [],
-      position: { lat: 0, lng: 0 }
+      position: { lat: 0, lng: 0 },
+      metricSystem: false,
+      cities: []
     };
 
   }
 
   componentDidMount() {
     WeatherRequests.getCurrentCityPosition().then(this.getFullInfoByPosition.bind(this));
+    this.fillCitiesState();
   }
 
   render() {
     return (
       <div className="App">
+        <Header toggleSystem={this.catchToggleMetric.bind(this)}/>
         <Home 
           isDay={this.state.isDay}
           mainWeather={this.state.mainWeather}
           forecast={this.state.forecast}
           position={this.state.position}/>
-        <OtherCities onClick={this.catchClickEvent.bind(this)} />
+        <OtherCities cities={this.state.cities} onClick={this.catchClickEvent.bind(this)} />
       </div>
     );
   }
@@ -52,8 +58,67 @@ class App extends Component {
     this.getFullInfoByPosition({lat: selectedPosition.lat, lng: selectedPosition.lon});
   }
 
+  catchToggleMetric(e) {
+    this.setState({metricSystem: !this.state.metricSystem});
+    this.convertStateSystem();
+  }
+
+  convertStateSystem() {
+    console.log(this.state.cities)
+    let mainWeatherConversion = {
+      ...this.state.mainWeather,
+      min: WeatherRequests.convertWeatherSystem(this.state.mainWeather.min, this.state.metricSystem),
+      max: WeatherRequests.convertWeatherSystem(this.state.mainWeather.max, this.state.metricSystem)
+    },
+      forecastConversion = this.state.forecast.map(dayForecast => {
+        return {
+          ...dayForecast,
+          temp_min: WeatherRequests.convertWeatherSystem(dayForecast.temp_min, this.state.metricSystem),
+          temp_max: WeatherRequests.convertWeatherSystem(dayForecast.temp_max, this.state.metricSystem)
+        }
+      }),
+      citiesConversion = this.state.cities.map(city => {
+        return {
+          ...city,
+          temperature: WeatherRequests.convertWeatherSystem(city.temperature, this.state.metricSystem)
+        }
+      });
+
+    this.setState({
+      mainWeather: mainWeatherConversion,
+      forecast: forecastConversion,
+      cities: citiesConversion
+    });
+
+  }
+
+  fillCitiesState() {
+    for (let i = 0; i < 10; i++) {
+      let randomIndex = Math.floor(Math.random() * cities.length),
+        city = cities[randomIndex];
+
+      WeatherRequests.getCityWeatherByName(city.name, city.country, this.state.metricSystem).then((response) => {
+        // No all cities on that API return population ... need to look for a workaround
+        WeatherRequests.getCityPopulation(city.name, city.country).then(populationObj => {
+
+          let tempCities = this.state.cities,
+            population = (populationObj.data.records[0]) ? populationObj.data.records[0].fields.population : null;
+          tempCities.push({
+            name: `${city.name}, ${city.country}`,
+            temperature: Math.floor(response.data.main.temp),
+            skyStatus: DayConditions.setWeatherSkyIcon(response.data.weather[0].icon),
+            population: (population) ? populationObj.data.records[0].fields.population : 0
+          });
+
+          this.setState({ cities: tempCities })
+        })
+
+      });
+    }
+  }
+
   getCurrentWeather(position) {
-    WeatherRequests.getCityWeatherByCoordinates(position).then(weather => {
+    WeatherRequests.getCityWeatherByCoordinates(position, this.state.metricSystem).then(weather => {
       let weatherData = weather.data,
         country = weatherData.sys.country,
         weatherObj = {
@@ -74,7 +139,7 @@ class App extends Component {
   }
 
   getForcast(position) {
-    WeatherRequests.getForecastByCoordinates(position).then(forecast => {
+    WeatherRequests.getForecastByCoordinates(position, this.state.metricSystem).then(forecast => {
       let dailyForecast = WeatherRequests.convertHourForecastIntoDaily(
         forecast.data.list
       );
