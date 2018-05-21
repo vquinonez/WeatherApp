@@ -66,6 +66,27 @@ const WeatherRequests = {
         }
     },
 
+    fiterCities: (name = '', country = '0') => {
+        return cities.filter(city => {
+            let valName = true,
+                valCountry = true;
+            if (name !== ''){
+                valName = city.name.toLowerCase().includes(name.toLowerCase());
+            } else {
+                valName = city.name.toLowerCase().includes('a');
+            }
+            if (country !== '0'){
+                valCountry = city.country == country;
+            }
+            
+            return valName && valCountry;
+        }).sort((a, b) => {
+            if (a.name < b.name) return -1;
+            if (a.name > b.name) return 1;
+            return 0;
+        }).slice(0, 25);
+    },
+
     formatDateIntoCustomObject(dateString) {
         let date = new Date(dateString)
         return {
@@ -108,6 +129,17 @@ const WeatherRequests = {
     getCityPopulation: (city, country) => {
         const URL = `${env.worldPopulation}&q=${city.toLowerCase()}&rows=1&sort=population&facet=country&refine.country=${country.toLowerCase()}`;
         return axios.get(URL);
+    },
+
+    getCountries: () => {
+        return cities.reduce((reduced, item) => {
+            let country = item.country;
+            if (!reduced.some(c => c === country) && country !== ''){
+                reduced.push(country)
+            }
+
+            return reduced;
+        }, []).sort();
     },
     
     getForecastByCoordinates: (coords = {lat: '0', lng: '0'}, metric = false) => {
