@@ -8,10 +8,22 @@ import DayConditions from "../../Services/dayConditions";
 import MainWeather from "../mainWeather/mainWeather";
 import Forecast from "./forecast/forecast";
 import MapCity from "./map/map";
+import RainAlert from "./rainAlert/rainAlert";
 
 class Home extends Component {
+
   constructor(props) {
     super(props);
+
+    this.state = {
+      isRaining: false
+    }
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    return {
+      isRaining: nextProps.mainWeather.isRaining
+    }
   }
 
   render() {
@@ -19,6 +31,7 @@ class Home extends Component {
       <section
         className={`main-container ${this.props.isDay ? "day" : "night"}`}
       >
+        {this.displayAlert()}
         <MainWeather
           name={this.props.mainWeather.name}
           skyStatus={this.props.mainWeather.skyStatus}
@@ -48,6 +61,19 @@ class Home extends Component {
         </div>
       </section>
     );
+  }
+
+  displayAlert() {
+
+    if ( this.state.isRaining ) {
+      return (<RainAlert close={this.toggleAlert.bind(this)}/>);
+    }
+  }
+
+  toggleAlert() {
+    this.setState({
+      isRaining: !this.state.isRaining
+    })
   }
 }
 

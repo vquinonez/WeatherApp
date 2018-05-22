@@ -52,6 +52,10 @@ const DayConditions = {
         }
 
         return response;
+    },
+
+    isRaining: (weatherKey) => {
+        return (weatherKey.substr(0,2) === '10' )
     }
 }
 

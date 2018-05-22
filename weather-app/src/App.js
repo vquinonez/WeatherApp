@@ -22,6 +22,7 @@ class App extends Component {
         skyStatus: '',
         min: 0,
         max: 0,
+        isRaining: false
       },
       forecast: [],
       position: { lat: 0, lng: 0 },
@@ -136,7 +137,8 @@ class App extends Component {
             "light"
           ),
           min: Math.floor(weatherData.main.temp_min),
-          max: Math.floor(weatherData.main.temp_max)
+          max: Math.floor(weatherData.main.temp_max),
+          isRaining: DayConditions.isRaining(weatherData.weather[0].icon)
         };
 
       this.setState({
