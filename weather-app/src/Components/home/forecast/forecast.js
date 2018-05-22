@@ -12,7 +12,7 @@ function Forecast({date = {month: '', day: 0}, skyStatus, min, max}) {
             <img src={`${process.env.PUBLIC_URL}/icons${skyStatus}`} />
             <div className="info">
                 <h3>{min}° <span>MIN</span></h3>
-                <h3>{max}° <span>MIN</span></h3>
+                <h3>{max}° <span>MAX</span></h3>
             </div>
         </section>
     );

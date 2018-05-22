@@ -3,15 +3,6 @@ import env from './enviroment';
 import cities from '../assets/json/city.list.json';
 
 const WeatherRequests = {
-    
-    /* getCityInfo: (locationObject = {lat: '', lng: ''}) => {
-        const URL = `${env.googleLocationURL}latlng=${locationObject.lat},${locationObject.lng}&key=${env.googleLocationKey}`;
-        
-        if (locationObject.lat === '' && locationObject.lng === '') {
-            console.error('no Location provided');
-        }
-        return axios.get(URL)
-    }, */
 
     convertHourForecastIntoDaily(forecast) {
 
@@ -120,12 +111,7 @@ const WeatherRequests = {
         const URL = `${env.openWeatherURL}/weather?q=${name},${country}&appid=${env.openWeatherKey}&units=${(metric) ? 'metric' : 'imperial'}`;
         return axios.get(URL);
     },
-    
-    /* getCityWeatherByZip: (zip, country) => {
-        const URL = `${env.openWeatherURL}/weather?zip=${zip},${country}&appid=${env.openWeatherKey}`;
-        return axios.get(URL);
-    }, */
-    
+
     getCityPopulation: (city, country) => {
         const URL = `${env.worldPopulation}&q=${city.toLowerCase()}&rows=1&sort=population&facet=country&refine.country=${country.toLowerCase()}`;
         return axios.get(URL);
